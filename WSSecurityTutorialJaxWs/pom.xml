@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example.security</groupId>
+	<artifactId>WSSecurityTutorialJaxWs</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>${project.artifactId}</name>
+	<description>Generated JAX-WS classes for your web service.</description>
+	<inceptionYear>2011</inceptionYear>
+	
+	<parent>
+		<groupId>com.example.security</groupId>
+		<artifactId>WSSecurityTutorialParent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../WSSecurityTutorialParent</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>WSSecurityTutorialWSDL</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-wsdl</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>WSSecurityTutorialWSDL</artifactId>
+									<version>${project.version}</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${basedir}/target/wsdl-resources</outputDirectory>
+								</artifactItem>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>CovalentGradebookApiWSDL</artifactId>
+									<version>${project.version}</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${basedir}/target/classes/wsdl</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+                            <includes>**.xsd, **.wsdl</includes>
+                            <excludes>META-INF\/**</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>jaxws</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<bindingFiles>
+								<bindingFile>${basedir}/src/main/jaxws/cms.xml</bindingFile>
+							</bindingFiles>
+							<wsdlDirectory>${basedir}/target/wsdl-resources</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>CovalentGradebookCms.wsdl</wsdlFile>
+							</wsdlFiles>
+							<extension>true</extension>
+							<xjcArgs>
+								<xjcArg>-extension</xjcArg>
+							</xjcArgs>
+							<staleFile>${project.build.directory}/jaxws/stale/cms.staleFlag</staleFile>
+							<xadditionalHeaders>true</xadditionalHeaders>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.sun.xml.ws</groupId>
+						<artifactId>jaxws-tools</artifactId>
+						<version>${jaxWsVersion}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

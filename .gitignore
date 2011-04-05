@@ -1,0 +1,8 @@
+# Lines starting with '#' are considered comments.
+# Ignore generated eclipse and maven build files
+target/
+test-output/
+.settings/
+.classpath
+.project
+.DS_Store
