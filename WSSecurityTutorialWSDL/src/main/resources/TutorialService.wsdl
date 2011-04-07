@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://example.com/tutotial/"
+	xmlns:m="http://example.com/tutotial/types/"
+	xmlns:c="http://example.com/tutotial/common/types/"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/ws-securitypolicy.xsd"
+	targetNamespace="http://example.com/tutotial/" name="TutorialWebService">
+	
+	<wsdl:documentation>
+		This is a simple WSDL with accompanying XSD's for the tutorial.
+	</wsdl:documentation>
+
+	<!--===================================================================== -->
+	<!-- Schema Definition -->
+	<!--===================================================================== -->
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://example.com/tutotial/">
+			<xsd:import namespace="http://example.com/tutotial/types/" schemaLocation="TutorialService.xsd" />
+			<xsd:import namespace="http://example.com/common/types/" schemaLocation="Common.xsd" />
+
+			<!--===================================================================== -->
+			<!-- Requests and responses below in pairs -->
+			<!--===================================================================== -->
+			<xsd:element name="tutorial-request">
+				<xsd:annotation>
+					<xsd:documentation>
+						A request message for the tutorial
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="m:request-structure" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		
+			<xsd:element name="tutorial-response">
+				<xsd:annotation>
+					<xsd:documentation>
+						A response message for the tutorial
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="m:response-structure" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<!--===================================================================== -->
+			<!-- Faults -->
+			<!--===================================================================== -->
+			<xsd:element name="system-unavailable-fault-message">
+				<xsd:annotation>
+					<xsd:documentation>
+						Although the service should never be unavailable, if it is this message indicates
+						that a problem exists and needs attention immediately. The message attribute will 
+						contain a detailed description of the error and any code(s) contained in the
+						message will assist system administrators with reconciling the problem.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:attribute name="message" type="xsd:string" use="required"/>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="required-header-missing-fault-message">
+				<xsd:annotation>
+					<xsd:documentation>
+						This message indicates that the caller did not send a required header (or that it 
+						was null). See missing-header-name for the name of the missing header, and the
+						message for further information about the missing header (if any).
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:attribute name="missing-header-name" type="xsd:string" use="required"/>
+					<xsd:attribute name="message" type="xsd:string"/>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!--===================================================================== -->
+			<!-- Headers -->
+			<!--===================================================================== -->
+			<xsd:element name="message-source">
+				<xsd:annotation>
+					<xsd:documentation>
+						Contains information used for message routing and error reporting.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:attribute name="system-identifier">
+						<xsd:annotation>
+							<xsd:documentation>
+								An identifier, unique to the system, consisting of a string from 1 to 255 characters that cannot be null.  Choosing a unique, human-readable string between 4 and 10 characters is recommended.  Note that all requests from the same system must use the same identifier value and the chosen value must not used by other systems.
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="255"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<xsd:attribute name="message-identifier">
+						<xsd:annotation>
+							<xsd:documentation>
+								An identifier, unique to this particular message, consisting of a character string from 1 to 255 that cannot be null.  Using something like a randomly generated UUID is recommended.
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="255"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<xsd:anyAttribute namespace="##any" processContents="skip"/>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="message-acknowledgment">
+				<xsd:complexType>
+					<xsd:attribute name="some-message">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="255"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<xsd:anyAttribute namespace="##any" processContents="skip"/>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:schema>
+	</wsdl:types>
+
+	<!--===================================================================== -->
+	<!-- Request/Response messages in pairs -->
+	<!--===================================================================== -->
+	<wsdl:message name="TutorialRequest">
+		<wsdl:part element="tns:tutorial-request" name="parameters" />
+		<wsdl:part element="tns:message-source" name="source" />
+	</wsdl:message>
+	<wsdl:message name="TutorialResponse">
+		<wsdl:part element="tns:tutorial-response" name="response" />
+		<wsdl:part element="tns:message-acknowledgment" name="acknowledgment" />
+	</wsdl:message>
+
+	<!--===================================================================== -->
+	<!-- Fault messages -->
+	<!--===================================================================== -->
+	<wsdl:message name="SystemUnavailableFault">
+		<wsdl:documentation>
+			Indicates that the system was unable to queue this event for delivery.  See system-unavailable-fault-message 
+			for more information.
+		</wsdl:documentation>
+		<wsdl:part name="message" element="tns:system-unavailable-fault-message" />
+	</wsdl:message>
+
+	<wsdl:message name="RequiredHeaderMissingFault">
+		<wsdl:documentation>
+			Indicates that a required header was missing from the request.  See required-header-missing-fault-message
+			for more information.
+		</wsdl:documentation>
+		<wsdl:part name="message" element="tns:required-header-missing-fault-message" />
+	</wsdl:message>
+
+
+	<!--===================================================================== -->
+	<!-- Port type -->
+	<!--===================================================================== -->
+	<wsdl:portType name="TutorialWebService">
+		<wsdl:operation name="sendTutorialMessage">
+			<wsdl:documentation>
+				Sends a message and gets back some stuff.
+			</wsdl:documentation>
+			<wsdl:input message="tns:TutorialRequest" />
+			<wsdl:output message="tns:TutorialResponse" />
+			<wsdl:fault name="SystemUnavailableFault" message="tns:SystemUnavailableFault" />
+			<wsdl:fault name="RequiredHeaderMissingFault" message="tns:RequiredHeaderMissingFault" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+	<!--===================================================================== -->
+	<!-- SOAP Binding -->
+	<!--===================================================================== -->
+	<wsdl:binding name="TutorialWebServiceSOAP" type="tns:TutorialWebService">
+		<wsp:PolicyReference URI="#TutorialBindingPolicy" />
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="sendTutorialMessage">
+			<soap:operation
+				soapAction="http://example.com/tutotial/sendTutorialMessage" />
+			<wsdl:input>
+				<wsp:PolicyReference URI="#TutorialInputBindingPolicy"/>
+				<soap:body use="literal" parts="parameters" />
+				<soap:header use="literal" part="source" message="tns:TutorialRequest"/>
+			</wsdl:input>
+			<wsdl:output>
+				<wsp:PolicyReference URI="#TutorialOutputBindingPolicy"/>
+				<soap:body use="literal" parts="response"/>
+				<soap:header use="literal" part="acknowledgment" message="tns:TutorialResponse"/>
+			</wsdl:output>
+			<wsdl:fault name="SystemUnavailableFault">
+				<soap:fault use="literal" name="SystemUnavailableFault" />
+			</wsdl:fault>
+			<wsdl:fault name="RequiredHeaderMissingFault">
+				<soap:fault use="literal" name="RequiredHeaderMissingFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+
+	<!--===================================================================== -->
+	<!-- Service endpoint -->
+	<!--===================================================================== -->
+	<wsdl:service name="TutorialWebService">
+		<wsdl:port binding="tns:TutorialWebServiceSOAP" name="TutorialWebServiceSOAP">
+			<soap:address location="http://localhost/" />
+		</wsdl:port>
+	</wsdl:service>
+
+	<wsp:Policy wsu:Id="TutorialBindingPolicy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:AsymmetricBinding>
+					<wsp:Policy>
+						<sp:InitiatorToken>
+							<wsp:Policy>
+								<sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+									<wsp:Policy>
+										<sp:WssX509V3Token11 />
+									</wsp:Policy>
+								</sp:X509Token>
+							</wsp:Policy>
+						</sp:InitiatorToken>
+						<sp:RecipientToken>
+							<wsp:Policy>
+								<sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">
+									<wsp:Policy>
+										<sp:WssX509V3Token11 />
+										<sp:RequireIssuerSerialReference />
+									</wsp:Policy>
+								</sp:X509Token>
+							</wsp:Policy>
+						</sp:RecipientToken>
+						<sp:Layout>
+							<wsp:Policy>
+								<sp:Strict />
+							</wsp:Policy>
+						</sp:Layout>
+						<sp:IncludeTimestamp />
+						<sp:OnlySignEntireHeadersAndBody />
+						<sp:AlgorithmSuite>
+							<wsp:Policy>
+								<sp:Basic128 />
+							</wsp:Policy>
+						</sp:AlgorithmSuite>
+						<sp:EncryptSignature />
+					</wsp:Policy>
+				</sp:AsymmetricBinding>
+				<sp:Wss11>
+					<wsp:Policy>
+						<sp:MustSupportRefIssuerSerial />
+					</wsp:Policy>
+				</sp:Wss11>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="TutorialInputBindingPolicy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:EncryptedParts>
+					<sp:Body />
+				</sp:EncryptedParts>
+				<sp:SignedParts>
+					<sp:Body />
+					<sp:Header Namespace="http://example.com/tutotial/"/>
+				</sp:SignedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="TutorialOutputBindingPolicy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:EncryptedParts>
+					<sp:Body />
+				</sp:EncryptedParts>
+				<sp:SignedParts>
+					<sp:Body />
+					<sp:Header Namespace="http://example.com/tutotial/"/>
+				</sp:SignedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+</wsdl:definitions>

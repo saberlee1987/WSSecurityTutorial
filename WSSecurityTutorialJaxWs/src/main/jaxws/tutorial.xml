@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxws:bindings
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:c="http://example.com/common/types/">
+<!-- 	xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb  http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd
+                        http://java.sun.com/xml/ns/jaxws http://java.sun.com/xml/ns/jaxws/wsdl_customizationschema_2_0.xsd"> -->
+
+	<jaxws:bindings wsdlLocation="../../../target/wsdl-resources/TutorialService.wsdl" node="/wsdl:definitions">
+
+		
+		<jaxws:bindings node="wsdl:types/xsd:schema[@targetNamespace='http://example.com/tutotial/']">
+			<jaxb:globalBindings>
+				<jaxb:javaType name="java.util.Calendar" xmlType="xsd:dateTime" parseMethod="com.example.tutorial.jaxb.DateConverter.parseDateTimeCalendar" printMethod="com.example.tutorial.jaxb.DateConverter.printDateTimeCalendar"/>
+				<jaxb:javaType name="java.util.Calendar" xmlType="c:DateTimeWithTimezone" parseMethod="com.example.tutorial.jaxb.DateConverter.parseDateTimeCalendar" printMethod="com.example.tutorial.jaxb.DateConverter.printDateTimeCalendar"/>
+				<jaxb:javaType name="java.util.Calendar" xmlType="xsd:date" parseMethod="com.example.tutorial.jaxb.DateConverter.parseDateCalendar" printMethod="com.example.tutorial.jaxb.DateConverter.printDateCalendar"/>
+				<jaxb:javaType name="java.net.URI" xmlType="xsd:anyURI" parseMethod="com.example.tutorial.jaxb.UriConverter.parseUri" printMethod="com.example.tutorial.jaxb.UriConverter.printUri"/>
+				<jaxb:javaType name="java.net.URI" xmlType="c:ValidatedUri" parseMethod="com.example.tutorial.jaxb.UriConverter.parseUri" printMethod="com.example.tutorial.jaxb.UriConverter.printUri"/>
+				<jaxb:serializable uid="1" />
+				<xjc:simple/>
+				<xjc:superClass name="com.example.tutorial.jaxb.JaxbCommonSuperclass"/>
+			</jaxb:globalBindings>
+		</jaxws:bindings>
+		
+	</jaxws:bindings>
+
+</jaxws:bindings>

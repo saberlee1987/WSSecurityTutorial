@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/tutotial/types/"
+	xmlns:m="http://example.com/tutotial/types/" xmlns:c="http://example.com/common/types/" elementFormDefault="qualified">
+
+	<xsd:import namespace="http://example.com/common/types/" schemaLocation="Common.xsd" />
+
+	<!--===================================================================== -->
+	<!-- Model data elements -->
+	<!--===================================================================== -->
+	<xsd:element name="request-structure" type="m:RequestStructure" nillable="false"/>
+	<xsd:element name="response-structure" type="m:ResponseStructure" nillable="false"/>
+	
+	<!--===================================================================== -->
+	<!-- Request/Response messages in pairs -->
+	<!--===================================================================== -->
+
+	<!--===================================================================== -->
+	<!-- Faults -->
+	<!--===================================================================== -->
+
+	<!--===================================================================== -->
+	<!-- Reused complex types -->
+	<!--===================================================================== -->
+	<xsd:complexType name="RequestStructure">
+		<xsd:sequence>
+			<xsd:element name="tag" minOccurs="0" maxOccurs="unbounded" nillable="false">
+				<xsd:complexType>
+					<xsd:attribute name="uri" type="c:ValidatedUri" use="required"/>
+					<xsd:attribute name="value" type="c:Label" use="required"/>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="guid" type="c:Guid" use="required"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="ResponseStructure">
+		<xsd:attribute name="server-date" type="c:DateTimeWithTimezone" use="required"/>
+		<xsd:attribute name="response-code" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="\d{5}" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="response-message" type="c:Description" use="required"/>
+	</xsd:complexType>
+
+	<!--===================================================================== -->
+	<!-- Reused simple types -->
+	<!--===================================================================== -->
+
+</xsd:schema>

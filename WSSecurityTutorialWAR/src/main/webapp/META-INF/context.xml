@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Context file for Tomcat deployment. If this is in the web root's META-INF directory,
+    then Tomcat will grab this and use it when it auto deploys from a WAR file.
+    If you are not auto deploying via WAR file, then the information should
+    be copied into whatever context file you create for the webapp.
+-->
+<Context>
+    <!-- Prevent Tomcat from trying to save and restore sessions when restarted. -->
+    <Manager pathname=""/>
+    <Environment name="configDirectory"
+    	value=""
+    	type="java.lang.String" override="false"/>
+</Context>

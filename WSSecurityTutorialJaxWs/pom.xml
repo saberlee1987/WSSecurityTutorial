@@ -27,6 +27,14 @@
 			<artifactId>jaxws-rt</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>WSSecurityTutorialWSDL</artifactId>
 			<version>${project.version}</version>
@@ -58,7 +66,7 @@
 								</artifactItem>
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
-									<artifactId>CovalentGradebookApiWSDL</artifactId>
+									<artifactId>WSSecurityTutorialWSDL</artifactId>
 									<version>${project.version}</version>
 									<type>jar</type>
 									<overWrite>true</overWrite>
@@ -82,17 +90,17 @@
 						</goals>
 						<configuration>
 							<bindingFiles>
-								<bindingFile>${basedir}/src/main/jaxws/cms.xml</bindingFile>
+								<bindingFile>${basedir}/src/main/jaxws/tutorial.xml</bindingFile>
 							</bindingFiles>
 							<wsdlDirectory>${basedir}/target/wsdl-resources</wsdlDirectory>
 							<wsdlFiles>
-								<wsdlFile>CovalentGradebookCms.wsdl</wsdlFile>
+								<wsdlFile>TutorialService.wsdl</wsdlFile>
 							</wsdlFiles>
 							<extension>true</extension>
 							<xjcArgs>
 								<xjcArg>-extension</xjcArg>
 							</xjcArgs>
-							<staleFile>${project.build.directory}/jaxws/stale/cms.staleFlag</staleFile>
+							<staleFile>${project.build.directory}/jaxws/stale/tutorial.staleFlag</staleFile>
 							<xadditionalHeaders>true</xadditionalHeaders>
 						</configuration>
 					</execution>

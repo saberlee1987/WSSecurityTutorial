@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://example.com/common/types/"
+	xmlns:c="http://example.com/common/types/"
+	elementFormDefault="qualified">
+
+	<!--===================================================================== -->
+	<!-- Reused data elements                                                 -->
+	<!--===================================================================== -->
+
+	<!--===================================================================== -->
+	<!-- Faults                                                               -->
+	<!--===================================================================== -->
+
+	<!--===================================================================== -->
+	<!-- Reused complex types                                                 -->
+	<!--===================================================================== -->
+
+	<!--===================================================================== -->
+	<!-- Reused simple types                                                  -->
+	<!--===================================================================== -->
+	<xsd:simpleType name="ValidatedUri">
+		<xsd:annotation>
+			<xsd:documentation>
+				Regex and length validation for URIs, since by default they're not really validated by schema.
+
+				Two possible options here:
+				(([a-zA-Z][0-9a-zA-Z+\-\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&amp;=+\.\-_!~*'()%]+)?(#[0-9a-zA-Z;/?:@&amp;=+\.\-_!~*'()%]+)?
+				([a-z0-9+.-]+):(?://(?:((?:[a-z0-9-._~!$&amp;'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&amp;'()*+,;=]|%[0-9A-F]{2})*)(?::(\d*))?(/(?:[a-z0-9-._~!$&amp;'()*+,;=:@/]|%[0-9A-F]{2})*)?|(/?(?:[a-z0-9-._~!$&amp;'()*+,;=:@]|%[0-9A-F]{2})+(?:[a-z0-9-._~!$&amp;'()*+,;=:@/]|%[0-9A-F]{2})*)?)(?:\?((?:[a-z0-9-._~!$&amp;'()*+,;=:/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&amp;'()*+,;=:/?@]|%[0-9A-F]{2})*))?
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:anyURI">
+			<xsd:pattern
+				value="(([a-zA-Z][0-9a-zA-Z+\-\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&amp;=+\.\-_!~*'()%]+)(#[0-9a-zA-Z;/?:@&amp;=+\.\-_!~*'()%]+)?" />
+			<xsd:maxLength value="255" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Label">
+		<xsd:annotation>
+			<xsd:documentation>
+				A field containing text whose minimum character length is zero (can be null) and whose maximum character length is
+				255. 
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="255" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="DateTimeWithTimezone">
+		<xsd:annotation>
+			<xsd:documentation>
+				A date/time restriction that requires a timezone specification.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime">
+			<xsd:pattern value="\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d(.\d+)?(((\+|-)\d\d:\d\d)|Z)" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Guid">
+		<xsd:annotation>
+			<xsd:documentation>
+				A globally unique ID.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\{?[a-fA-F0-9:\-]{1,255}\}?" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="Description">
+		<xsd:annotation>
+			<xsd:documentation>
+				A field containing text whose minimum character length is zero (can be null) and whose maximum character length is
+				1024. 
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1024" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Identifier">
+		<xsd:annotation>
+			<xsd:documentation>
+				A field containing text whose minimum character length is 1 (cannot be null) and whose maximum character length is
+				255.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="255" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

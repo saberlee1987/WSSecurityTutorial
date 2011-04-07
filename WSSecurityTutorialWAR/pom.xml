@@ -19,14 +19,18 @@
 
 	<properties>
 		<port>9095</port>
-		<apjPort>8010</apjPort>
 		<stopPort>9977</stopPort>
-		<waitForCargo>true</waitForCargo>
 
 		<serverKeyAlias>myservicekey</serverKeyAlias>
+		<testEndpointUrl>http://localhost:${port}/${project.artifactId}/jaxws/TutorialWebService</testEndpointUrl>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.servlet</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -46,12 +50,6 @@
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk16</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>WSSecurityTutorialWSDL</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -106,8 +104,25 @@
 			<artifactId>spring-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.cengage.standards</groupId>
-			<artifactId>CengageSpringExtensions</artifactId>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>WSSecurityTutorialJaxWs</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>WSSecurityTutorialWSDL</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -134,10 +149,6 @@
 				</includes>
 			</testResource>
 			<testResource>
-				<directory>src/test/conf</directory>
-				<filtering>true</filtering>
-			</testResource>
-			<testResource>
 				<directory>src/main/springconfig/local</directory>
 				<filtering>true</filtering>
 				<excludes>
@@ -150,10 +161,6 @@
 				<includes>
 					<include>**/*.jks</include>
 				</includes>
-			</testResource>
-			<testResource>
-				<directory>src/test/jetty</directory>
-				<filtering>true</filtering>
 			</testResource>
 		</testResources>
 		<plugins>
@@ -199,48 +206,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.cargo</groupId>
-				<artifactId>cargo-maven2-plugin</artifactId>
-				<configuration>
-					<wait>${waitForCargo}</wait>
-					<container>
-						<containerId>${containerId}</containerId>
-						<type>installed</type>
-						<zipUrlInstaller>
-							<url>${downloadUrl}</url>
-							<installDir>${installDir}</installDir>
-						</zipUrlInstaller>
-						<systemProperties>
-							<configDirectory>${basedir}/target/test-classes</configDirectory>
-							<jms.uri>${activeMqUrl}</jms.uri >
-							<jms.endpoint>${activeMqUrl}</jms.endpoint>
-						</systemProperties>
-					</container>
-					<configuration>
-						<home>${project.build.directory}/${containerId}/container</home>
-						<properties>
-							<cargo.servlet.port>${port}</cargo.servlet.port>
-							<cargo.logging>high</cargo.logging>
-							<cargo.servlet.users>admin::manager</cargo.servlet.users>
-							<cargo.tomcat.ajp.port>${apjPort}</cargo.tomcat.ajp.port>
-							<cargo.rmi.port>${stopPort}</cargo.rmi.port>
-							<cargo.jvmargs>-Xmx1024m -XX:MaxPermSize=256m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n</cargo.jvmargs>
-						</properties>
-						<deployables>
-							<deployable>
-								<groupId>${project.groupId}</groupId>
-								<artifactId>${project.artifactId}</artifactId>
-								<pingURL>http://localhost:${port}/${project.artifactId}/index.jsp</pingURL>
-								<pingTimeout>60000</pingTimeout>
-								<properties>
-									<context>${project.artifactId}</context>
-								</properties>
-							</deployable>
-						</deployables>
-					</configuration>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<configuration>
@@ -272,17 +237,60 @@
 							<maxIdleTime>60000</maxIdleTime>
 						</connector>
 					</connectors>
-					<jettyConfig>${basedir}/target/test-classes/jetty.xml</jettyConfig>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipse.jetty</groupId>
-						<artifactId>jetty-deploy</artifactId>
-						<version>${jettyVersion}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>integration-test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>start-jetty</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>run-war</goal>
+								</goals>
+								<configuration>
+									<scanIntervalSeconds>0</scanIntervalSeconds>
+									<daemon>true</daemon>
+								</configuration>
+							</execution>
+							<execution>
+								<id>stop-jetty</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>surefire-integration-test</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<groups>remote-integration</groups>
+									<reportsDirectory>${basedir}/target/remote-surefire-reports/</reportsDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

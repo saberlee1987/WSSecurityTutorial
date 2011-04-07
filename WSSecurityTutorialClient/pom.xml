@@ -105,10 +105,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.cengage.standards</groupId>
-			<artifactId>CengageSpringExtensions</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>
