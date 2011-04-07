@@ -7,7 +7,23 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
-	<description>Generated JAX-WS classes for your web service.</description>
+	<description>
+		This module contains maven configurations for generating JAX-WS-compliant code from the WSDL
+		in the WSSecurityTutorialWSDL, and then jars these up for re-use later. The generated JAR also
+		includes the WSDL files themselves so they can be retrieved from the classpath by any client if
+		necessary.
+		
+		It is worth noting that these classes are generated using the standard javax classes for
+		wsimport, and not the CXF-specific importer.  This is mostly done for historical reasons, but
+		also ensures that our generated classes should be usable by any JAX-WS-compliant processor,
+		not just CXF.
+		
+		Note also that the file src/main/jaxws/tutorial.xml controls the JAX-WS/JAXB binding process,
+		producing several customizations to the binding (specifically, handling dates as Calendars)
+		and URI's as java URI objects; adding JaxbCommonSuperclass as the superclass of all generated
+		model objects, making generated types serializable, and turning on "simple" mode which makes
+		the generated classes somewhat more friendly to java standards).
+	</description>
 	<inceptionYear>2011</inceptionYear>
 	
 	<parent>

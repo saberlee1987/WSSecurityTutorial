@@ -8,12 +8,25 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
-	<description>A parent POM file that sets up dependency versions and other parameters for our examples</description>
+	<description>
+		The "WSSecurityTutorial" group of projects contains an example of how to create a JAX-WS web service using Apache CXF,
+		and secure that service with WS-Security encryption and signatures, specified by WS-SecurityPolicy assertions in the
+		WSDL.
+	
+		This project contains parent POM file that sets up dependency versions and other parameters for our examples, and includes
+		the modules for a reactor build of the entire project.  See the descriptions of each of the child projects
+		for information on them.
+		
+		To execute a complete reactor build of the parent and its children, execute 'mvn clean install' from the parent
+		directory, or 'mvn clean install -Pintegration-test', which will start up the jetty server and execute the integration
+		tests.
+		
+		Of special note is that the maven-surefire-plugin is configured to run the TestNG groups unit and integration, so that
+		other groups (specifically remote-integration) are excluded; these examples use TestNG instead of JUnit for this grouping functionality.
+	</description>
 	<inceptionYear>2011</inceptionYear>
 
 	<properties>
-		<jettyContainerId>jetty7x</jettyContainerId>
-		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
 		<jettyVersion>8.0.0.M2</jettyVersion>
@@ -216,16 +229,6 @@
 				<groupId>org.testng</groupId>
 				<artifactId>testng</artifactId>
 				<version>${testNgVersion}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jmock</groupId>
-				<artifactId>jmock</artifactId>
-				<version>${jmockVersion}</version>
-			</dependency>
-			<dependency>
-				<groupId>jmock</groupId>
-				<artifactId>jmock-cglib</artifactId>
-				<version>${jmockCglibVersion}</version>
 			</dependency>
 			<!-- Apache Commons utilities -->
 			<dependency>

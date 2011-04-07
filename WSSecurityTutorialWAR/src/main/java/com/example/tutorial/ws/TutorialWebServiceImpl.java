@@ -26,7 +26,8 @@ import com.example.tutotial.TutorialWebService;
 import com.example.tutotial.types.ResponseStructure;
 
 /**
- * TODO Class description
+ * The implementation of the web-service interface generated from the WSDL.  Obviously this example is trivial, but
+ * it servers to show how such a service might be constructed and implemented.
  *
  * @author Ross M. Lodge
  */

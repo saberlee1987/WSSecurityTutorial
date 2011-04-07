@@ -17,11 +17,21 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
 /**
- * A jndi-aware extension of the Spring PropertyPlaceholderConfigurer (v2.5.6). By default this resolves properties from
+ * <p>
+ * A jndi-aware extension of the Spring {@link PropertyPlaceholderConfigurer} (v3.0.5). By default this resolves properties from
  * jndi first, then any referenced property files and then falls back to System properties and the System Environment.
+ * </p>
  * <p>
  * It also performs property expansion on values passed in as Locations in case the resource locations themselves have
  * placeHolder values that need to be resolved from jndi or system properties
+ * </p>
+ * <p>
+ * The behavior of this class is controlled, in addition to the standard {@link PropertyPlaceholderConfigurer} configuration,
+ * by the {@link #searchJndiEnvironment} flag and the {@link #jndiSystemOrder} property.  The {@link #searchJndiEnvironment}
+ * flag turns off searching JNDI values, although why you would want to use this class without that is beyond me.  The {@link #jndiSystemOrder}
+ * property specifies whether JNDI or SYSTEM properties are read first, and thus take priority.  These work in <em>conjunction</em> with
+ * the standard systemPropertiesMode property which specifies whether JNDI/SYSTEM properties override anything specified in the properties
+ * files or whether they are only used as a fallback.
  * </p>
  * <p>
  * An example usage in which we have two property files referenced via a configDirectory parameter injected as a jndi or

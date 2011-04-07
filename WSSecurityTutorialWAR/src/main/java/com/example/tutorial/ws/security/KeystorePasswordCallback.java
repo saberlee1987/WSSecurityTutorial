@@ -11,7 +11,9 @@ import javax.security.auth.callback.UnsupportedCallbackException;
 import org.apache.ws.security.WSPasswordCallback;
 
 /**
- * Really bad service keystore password callback.
+ * Really callback for key passwords.  Configure it with a map
+ * of key-alias-to-password mappings.  Obviously this could
+ * be extended to encrypt or obfuscate these passwords if desired.
  * 
  * @author Ross M. Lodge
  */

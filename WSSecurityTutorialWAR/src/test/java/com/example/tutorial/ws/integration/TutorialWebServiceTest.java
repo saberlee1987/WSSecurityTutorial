@@ -25,7 +25,9 @@ import com.example.tutotial.TutorialWebService;
 import com.example.tutotial.types.RequestStructure;
 
 /**
- * Integration tests (i.e. tests that must be run against a running server).
+ * Integration tests (i.e. tests that must be run against a running server).  Uses Spring's test framework,
+ * but, using another method of context loading (e.g. via web.xml or hard-coding) serves as an example
+ * of how to write a CXF client for these services.
  *
  * @author Ross M. Lodge
  */
