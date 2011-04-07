@@ -13,8 +13,6 @@
 			classpath:META-INF/cxf/cxf.xml
 			classpath:META-INF/cxf/cxf-extension-soap.xml
 			classpath:META-INF/cxf/cxf-servlet.xml
-			classpath:META-INF/cxf/cxf-extension-policy.xml
-			classpath:META-INF/cxf/cxf-extension-ws-security.xml
 	        classpath*:/com/**/war-config.xml
 	        classpath*:/com/**/cxf-service-config.xml
 	    </param-value>

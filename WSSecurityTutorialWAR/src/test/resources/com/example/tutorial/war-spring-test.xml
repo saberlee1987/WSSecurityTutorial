@@ -32,31 +32,9 @@
     	<constructor-arg value="${unitTest.testEndpointUrl}"/>
     </bean>
 
-	<bean id="keystorePasswordCallback" class="com.example.tutorial.ws.security.KeystorePasswordCallback">
-		<property name="passwords">
-			<map>
-				<entry key="${wss.keyAlias}" value="${wss.keyPassword}"/>
-			</map>
-		</property>
-	</bean>
-	
-	<util:properties id="keystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">${wss.keystoreType}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${wss.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${wss.keyAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.file">${wss.keystorePath}</prop>
-	</util:properties>
-
 	<jaxws:client id="testClient" serviceClass="com.example.tutotial.TutorialWebService"
 		address="${unitTest.testEndpointUrl}" wsdlLocation="${unitTest.testEndpointUrl}?wsdl"
 		serviceName="s:TutorialWebService" endpointName="s:TutorialWebServiceSOAP" xmlns:s="http://example.com/tutotial/">
-		<jaxws:properties>
-			<entry key="ws-security.callback-handler" value-ref="keystorePasswordCallback"/>        
-			<entry key="ws-security.encryption.properties" value-ref="keystoreProperties"/>
-			<entry key="ws-security.signature.properties" value-ref="keystoreProperties"/>
-			<entry key="ws-security.encryption.username" value="myservicekey"/>
-		</jaxws:properties>
 		<jaxws:inInterceptors>
 			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
 		</jaxws:inInterceptors>

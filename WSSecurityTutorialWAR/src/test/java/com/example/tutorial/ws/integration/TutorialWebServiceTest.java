@@ -36,8 +36,6 @@ import com.example.tutotial.types.RequestStructure;
         "classpath*:/META-INF/cxf/cxf.xml",
         "classpath*:/META-INF/cxf/cxf-extension-soap.xml",
         "classpath*:/META-INF/cxf/cxf-extension-http.xml",
-        "classpath*:/META-INF/cxf/cxf-extension-policy.xml",
-        "classpath*:/META-INF/cxf/cxf-extension-ws-security.xml",
         "classpath*:/com/**/war-spring-test.xml"
 })
 public class TutorialWebServiceTest extends AbstractTestNGSpringContextTests
