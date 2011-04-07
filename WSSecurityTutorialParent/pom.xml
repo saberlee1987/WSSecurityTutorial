@@ -458,7 +458,6 @@
 		<module>../WSSecurityTutorialWSDL</module>
 		<module>../WSSecurityTutorialJaxWs</module>
 		<module>../WSSecurityTutorialWAR</module>
-		<module>../WSSecurityTutorialClient</module>
 	</modules>
 	
 	<repositories>
