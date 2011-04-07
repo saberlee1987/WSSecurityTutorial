@@ -21,7 +21,7 @@
 		directory, or 'mvn clean install -Pintegration-test', which will start up the jetty server and execute the integration
 		tests.
 		
-		Of special note is that the maven-surefire-plugin is configured to run the TestNG groups unit and integration, so that
+		Of special note is that the maven-surefire-plugin is configured to run the TestNG groups unit and local-integration, so that
 		other groups (specifically remote-integration) are excluded; these examples use TestNG instead of JUnit for this grouping functionality.
 	</description>
 	<inceptionYear>2011</inceptionYear>
