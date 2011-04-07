@@ -30,7 +30,7 @@
 		and keystores for a real deployment.
 		
 		The tests use TestNG for its grouping functionality, and the "integration-test" profile executes the "remote-integration"
-		group, while the normal test runs include only the "unit" and "integration" groups.  These tests use the CXF client
+		group, while the normal test runs include only the "unit" and "local-integration" groups.  These tests use the CXF client
 		functionality and have their own Spring configuration, and they serve as an example of how to build a CXF client
 		for this kind of service.
 	</description>
