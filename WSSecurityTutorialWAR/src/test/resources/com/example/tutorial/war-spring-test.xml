@@ -33,7 +33,7 @@
     </bean>
 
 	<jaxws:client id="testClient" serviceClass="com.example.tutotial.TutorialWebService"
-		address="${unitTest.testEndpointUrl}" wsdlLocation="${unitTest.testEndpointUrl}?wsdl"
+		address="${unitTest.testEndpointUrl}" wsdlLocation="/wsdl/TutorialService.wsdl"
 		serviceName="s:TutorialWebService" endpointName="s:TutorialWebServiceSOAP" xmlns:s="http://example.com/tutotial/">
 		<jaxws:inInterceptors>
 			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
