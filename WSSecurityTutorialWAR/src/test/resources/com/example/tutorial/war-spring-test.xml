@@ -55,7 +55,7 @@
 			<entry key="ws-security.callback-handler" value-ref="keystorePasswordCallback"/>        
 			<entry key="ws-security.encryption.properties" value-ref="keystoreProperties"/>
 			<entry key="ws-security.signature.properties" value-ref="keystoreProperties"/>
-			<entry key="ws-security.encryption.username" value="myservicekey"/>
+			<entry key="ws-security.encryption.username" value="${serverKeyAlias}"/>
 		</jaxws:properties>
 		<jaxws:inInterceptors>
 			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
