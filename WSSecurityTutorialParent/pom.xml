@@ -54,8 +54,7 @@
 		<commonsPoolVersion>1.5.4</commonsPoolVersion>
 		
 		<javaxInjectVersion>1</javaxInjectVersion>
-		<cxf.version>2.3.3</cxf.version>
-		<bouncycastle.version>1.45</bouncycastle.version>
+		<cxf.version>2.4.0</cxf.version>
 	</properties>
 
 	<dependencyManagement>
@@ -334,17 +333,6 @@
 				<groupId>org.apache.cxf</groupId>
 				<artifactId>cxf-rt-ws-policy</artifactId>
 				<version>${cxf.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>commons-logging</groupId>
-						<artifactId>commons-logging</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.bouncycastle</groupId>
-				<artifactId>bcprov-jdk16</artifactId>
-				<version>${bouncycastle.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>commons-logging</groupId>

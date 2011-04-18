@@ -29,6 +29,9 @@
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${wss.keystorePassword}</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${wss.keyAlias}</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.file">${wss.keystorePath}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.truststore.file">${wss.keystorePath}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.truststore.password">${wss.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.truststore.type">${wss.keystoreType}</prop>
 	</util:properties>
 
 	<jaxws:endpoint id="tutorialWebService"  implementor="#TutorialWebService"
