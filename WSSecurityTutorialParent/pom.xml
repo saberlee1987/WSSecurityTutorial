@@ -32,7 +32,7 @@
 		<jettyVersion>8.0.0.M2</jettyVersion>
 	
 		<jvmVersion>1.6</jvmVersion>
-		<javaxServletVersion>3.0</javaxServletVersion>
+		<javaxServletVersion>1.0</javaxServletVersion>
 		<springVersion>3.0.5.RELEASE</springVersion>
 		<jaxWsVersion>2.1.7</jaxWsVersion>
 		<jaxbVersion>2.1.13</jaxbVersion>
@@ -62,8 +62,8 @@
 		<dependencies>
 			<!-- Servlet API's -->
 			<dependency>
-				<groupId>org.glassfish</groupId>
-				<artifactId>javax.servlet</artifactId>
+				<groupId>org.apache.geronimo.specs</groupId>
+				<artifactId>geronimo-servlet_3.0_spec</artifactId>
 				<version>${javaxServletVersion}</version>
 				<scope>provided</scope>
 			</dependency>
@@ -277,12 +277,12 @@
 			</dependency>
 			<!-- Web services and JAXB -->
 			<dependency>
-				<groupId>com.sun.xml.ws</groupId>
+				<groupId>sun-jaxws</groupId>
 				<artifactId>jaxws-rt</artifactId>
 				<version>${jaxWsVersion}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.sun.xml.ws</groupId>
+				<groupId>sun-jaxws</groupId>
 				<artifactId>jaxws-tools</artifactId>
 				<version>${jaxWsVersion}</version>
 			</dependency>
