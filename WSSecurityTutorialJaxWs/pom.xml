@@ -121,13 +121,6 @@
 						</configuration>
 					</execution>
 				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>sun-jaxws</groupId>
-						<artifactId>jaxws-tools</artifactId>
-						<version>${jaxWsVersion}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
