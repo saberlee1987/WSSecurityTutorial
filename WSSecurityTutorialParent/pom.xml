@@ -18,7 +18,7 @@
 		for information on them.
 		
 		To execute a complete reactor build of the parent and its children, execute 'mvn clean install' from the parent
-		directory, or 'mvn clean install -Pintegration-test', which will start up the jetty server and execute the integration
+		directory, or 'mvn clean install -Pintegration-test', which will start up the tomcat server and execute the integration
 		tests.
 		
 		Of special note is that the maven-surefire-plugin is configured to run the TestNG groups unit and local-integration, so that
@@ -29,8 +29,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
-		<jettyVersion>8.0.0.M2</jettyVersion>
-	
 		<jvmVersion>1.6</jvmVersion>
 		<javaxServletVersion>1.0</javaxServletVersion>
 		<springVersion>3.0.5.RELEASE</springVersion>
@@ -367,9 +365,9 @@
 					<version>2.4.1</version>
 				</plugin>
 				<plugin>
-					<groupId>org.mortbay.jetty</groupId>
-					<artifactId>jetty-maven-plugin</artifactId>
-					<version>${jettyVersion}</version>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-maven2-plugin</artifactId>
+					<version>1.1.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
