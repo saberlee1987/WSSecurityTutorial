@@ -48,7 +48,7 @@
 		<apjPort>8010</apjPort>
 		<stopPort>9977</stopPort>
 		<containerId>tomcat7x</containerId>
-		<downloadUrl>http://mirrors.ibiblio.org/apache/tomcat/tomcat-7/v7.0.14/bin/apache-tomcat-7.0.14.zip</downloadUrl>
+		<downloadUrl>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.47/bin/apache-tomcat-7.0.47.zip</downloadUrl>
 		<installDir>${user.home}/.m2/tomcatm2</installDir>
 		<waitForCargo>true</waitForCargo>
 
@@ -242,7 +242,8 @@
 						<type>installed</type>
 						<zipUrlInstaller>
 							<url>${downloadUrl}</url>
-							<installDir>${installDir}</installDir>
+							<downloadDir>${installDir}</downloadDir>
+							<extractDir>${installDir}/${containerId}</extractDir>
 						</zipUrlInstaller>
 						<systemProperties>
 							<configDirectory>${basedir}/target/test-classes</configDirectory>
