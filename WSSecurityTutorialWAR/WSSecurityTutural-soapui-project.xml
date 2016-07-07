@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="WSSecurityTutural" resourceRoot="${projectDir}" soapui-version="4.6.4" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="TutorialWebServiceSOAP" type="wsdl" bindingName="{http://example.com/tutotial/}TutorialWebServiceSOAP" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService?wsdl"><con:part><con:url>http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="TutorialWebService" targetNamespace="http://example.com/tutotial/" xsi:schemaLocation="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/ws-securitypolicy.xsd" xmlns:c="http://example.com/tutotial/common/types/" xmlns:m="http://example.com/tutotial/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" xmlns:tns="http://example.com/tutotial/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <wsdl:documentation>This is a simple WSDL with accompanying XSD's for the tutorial.</wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://example.com/tutotial/">
+      <xsd:import namespace="http://example.com/tutotial/types/" schemaLocation="http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService?xsd=TutorialService.xsd"/>
+      <xsd:import namespace="http://example.com/common/types/" schemaLocation="http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService?xsd=Common.xsd"/>
+      <!--=====================================================================-->
+      <!--Requests and responses below in pairs-->
+      <!--=====================================================================-->
+      <xsd:element name="tutorial-request">
+        <xsd:annotation>
+          <xsd:documentation>A request message for the tutorial</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="m:request-structure"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="tutorial-response">
+        <xsd:annotation>
+          <xsd:documentation>A response message for the tutorial</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="m:response-structure"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!--=====================================================================-->
+      <!--Faults-->
+      <!--=====================================================================-->
+      <xsd:element name="system-unavailable-fault-message">
+        <xsd:annotation>
+          <xsd:documentation>Although the service should never be unavailable, if it is this message indicates
+						that a problem exists and needs attention immediately. The message attribute will 
+						contain a detailed description of the error and any code(s) contained in the
+						message will assist system administrators with reconciling the problem.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:attribute name="message" type="xsd:string" use="required"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="required-header-missing-fault-message">
+        <xsd:annotation>
+          <xsd:documentation>This message indicates that the caller did not send a required header (or that it 
+						was null). See missing-header-name for the name of the missing header, and the
+						message for further information about the missing header (if any).</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:attribute name="missing-header-name" type="xsd:string" use="required"/>
+          <xsd:attribute name="message" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <!--=====================================================================-->
+      <!--Headers-->
+      <!--=====================================================================-->
+      <xsd:element name="message-source">
+        <xsd:annotation>
+          <xsd:documentation>Contains information used for message routing and error reporting.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:attribute name="system-identifier">
+            <xsd:annotation>
+              <xsd:documentation>An identifier, unique to the system, consisting of a string from 1 to 255 characters that cannot be null.  Choosing a unique, human-readable string between 4 and 10 characters is recommended.  Note that all requests from the same system must use the same identifier value and the chosen value must not used by other systems.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:minLength value="1"/>
+                <xsd:maxLength value="255"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+          <xsd:attribute name="message-identifier">
+            <xsd:annotation>
+              <xsd:documentation>An identifier, unique to this particular message, consisting of a character string from 1 to 255 that cannot be null.  Using something like a randomly generated UUID is recommended.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:minLength value="1"/>
+                <xsd:maxLength value="255"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+          <xsd:anyAttribute namespace="##any" processContents="skip"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="message-acknowledgment">
+        <xsd:complexType>
+          <xsd:attribute name="some-message">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:minLength value="1"/>
+                <xsd:maxLength value="255"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+          <xsd:anyAttribute namespace="##any" processContents="skip"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="TutorialResponse">
+    <wsdl:part element="tns:tutorial-response" name="response"></wsdl:part>
+    <wsdl:part element="tns:message-acknowledgment" name="acknowledgment"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemUnavailableFault">
+    <wsdl:documentation>Indicates that the system was unable to queue this event for delivery.  See system-unavailable-fault-message 
+			for more information.</wsdl:documentation>
+    <wsdl:part element="tns:system-unavailable-fault-message" name="message"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TutorialRequest">
+    <wsdl:part element="tns:tutorial-request" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:message-source" name="source"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RequiredHeaderMissingFault">
+    <wsdl:documentation>Indicates that a required header was missing from the request.  See required-header-missing-fault-message
+			for more information.</wsdl:documentation>
+    <wsdl:part element="tns:required-header-missing-fault-message" name="message"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TutorialWebService">
+    <wsdl:operation name="sendTutorialMessage">
+      <wsdl:documentation>Sends a message and gets back some stuff.</wsdl:documentation>
+      <wsdl:input message="tns:TutorialRequest"></wsdl:input>
+      <wsdl:output message="tns:TutorialResponse"></wsdl:output>
+      <wsdl:fault message="tns:SystemUnavailableFault" name="SystemUnavailableFault"></wsdl:fault>
+      <wsdl:fault message="tns:RequiredHeaderMissingFault" name="RequiredHeaderMissingFault"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TutorialWebServiceSOAP" type="tns:TutorialWebService">
+    <wsp:PolicyReference URI="#TutorialBindingPolicy"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="sendTutorialMessage">
+      <soap:operation soapAction="http://example.com/tutotial/sendTutorialMessage"/>
+      <wsdl:input>
+        <wsp:PolicyReference URI="#TutorialInputBindingPolicy"/>
+        <soap:body parts="parameters" use="literal"/>
+        <soap:header message="tns:TutorialRequest" part="source" use="literal"></soap:header>
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#TutorialOutputBindingPolicy"/>
+        <soap:body parts="response" use="literal"/>
+        <soap:header message="tns:TutorialResponse" part="acknowledgment" use="literal"></soap:header>
+      </wsdl:output>
+      <wsdl:fault name="SystemUnavailableFault">
+        <soap:fault name="SystemUnavailableFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="RequiredHeaderMissingFault">
+        <soap:fault name="RequiredHeaderMissingFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TutorialWebService">
+    <wsdl:port binding="tns:TutorialWebServiceSOAP" name="TutorialWebServiceSOAP">
+      <soap:address location="http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsp:Policy wsu:Id="TutorialBindingPolicy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:AsymmetricBinding>
+          <wsp:Policy>
+            <sp:InitiatorToken>
+              <wsp:Policy>
+                <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                    <sp:WssX509V3Token11/>
+                  </wsp:Policy>
+                </sp:X509Token>
+              </wsp:Policy>
+            </sp:InitiatorToken>
+            <sp:RecipientToken>
+              <wsp:Policy>
+                <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">
+                  <wsp:Policy>
+                    <sp:WssX509V3Token11/>
+                    <sp:RequireIssuerSerialReference/>
+                  </wsp:Policy>
+                </sp:X509Token>
+              </wsp:Policy>
+            </sp:RecipientToken>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict/>
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp/>
+            <sp:OnlySignEntireHeadersAndBody/>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic128/>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:EncryptSignature/>
+          </wsp:Policy>
+        </sp:AsymmetricBinding>
+        <sp:Wss11>
+          <wsp:Policy>
+            <sp:MustSupportRefIssuerSerial/>
+          </wsp:Policy>
+        </sp:Wss11>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="TutorialInputBindingPolicy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:EncryptedParts>
+          <sp:Body/>
+        </sp:EncryptedParts>
+        <sp:SignedParts>
+          <sp:Body/>
+          <sp:Header Namespace="http://example.com/tutotial/"/>
+        </sp:SignedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="TutorialOutputBindingPolicy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:EncryptedParts>
+          <sp:Body/>
+        </sp:EncryptedParts>
+        <sp:SignedParts>
+          <sp:Body/>
+          <sp:Header Namespace="http://example.com/tutotial/"/>
+        </sp:SignedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService?xsd=TutorialService.xsd</con:url><con:content><![CDATA[<xsd:schema elementFormDefault="qualified" targetNamespace="http://example.com/tutotial/types/" xmlns:c="http://example.com/common/types/" xmlns:m="http://example.com/tutotial/types/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://example.com/common/types/" schemaLocation="http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService?xsd=Common.xsd"/>
+  <!--=====================================================================-->
+  <!--Model data elements-->
+  <!--=====================================================================-->
+  <xsd:element name="request-structure" nillable="false" type="m:RequestStructure"/>
+  <xsd:element name="response-structure" nillable="false" type="m:ResponseStructure"/>
+  <!--=====================================================================-->
+  <!--Request/Response messages in pairs-->
+  <!--=====================================================================-->
+  <!--=====================================================================-->
+  <!--Faults-->
+  <!--=====================================================================-->
+  <!--=====================================================================-->
+  <!--Reused complex types-->
+  <!--=====================================================================-->
+  <xsd:complexType name="RequestStructure">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="tag" nillable="false">
+        <xsd:complexType>
+          <xsd:attribute name="uri" type="c:ValidatedUri" use="required"/>
+          <xsd:attribute name="value" type="c:Label" use="required"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="guid" type="c:Guid" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="ResponseStructure">
+    <xsd:attribute name="server-date" type="c:DateTimeWithTimezone" use="required"/>
+    <xsd:attribute name="response-code" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value="\d{5}"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="response-message" type="c:Description" use="required"/>
+  </xsd:complexType>
+  <!--=====================================================================-->
+  <!--Reused simple types-->
+  <!--=====================================================================-->
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService?xsd=Common.xsd</con:url><con:content><![CDATA[<xsd:schema elementFormDefault="qualified" targetNamespace="http://example.com/common/types/" xmlns:c="http://example.com/common/types/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!--=====================================================================-->
+  <!--Reused data elements-->
+  <!--=====================================================================-->
+  <!--=====================================================================-->
+  <!--Faults-->
+  <!--=====================================================================-->
+  <!--=====================================================================-->
+  <!--Reused complex types-->
+  <!--=====================================================================-->
+  <!--=====================================================================-->
+  <!--Reused simple types-->
+  <!--=====================================================================-->
+  <xsd:simpleType name="ValidatedUri">
+    <xsd:annotation>
+      <xsd:documentation><![CDATA[Regex and length validation for URIs, since by default they're not really validated by schema.
+
+				Two possible options here:
+				(([a-zA-Z][0-9a-zA-Z+\-\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&=+\.\-_!~*'()%]+)?(#[0-9a-zA-Z;/?:@&=+\.\-_!~*'()%]+)?
+				([a-z0-9+.-]+):(?://(?:((?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(?::(\d*))?(/(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?|(/?(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9A-F]{2})+(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?]]]]>><![CDATA[</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:pattern value="(([a-zA-Z][0-9a-zA-Z+\-\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&amp;=+\.\-_!~*'()%]+)(#[0-9a-zA-Z;/?:@&amp;=+\.\-_!~*'()%]+)?"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="Label">
+    <xsd:annotation>
+      <xsd:documentation>A field containing text whose minimum character length is zero (can be null) and whose maximum character length is
+				255.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="DateTimeWithTimezone">
+    <xsd:annotation>
+      <xsd:documentation>A date/time restriction that requires a timezone specification.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:dateTime">
+      <xsd:pattern value="\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d(.\d+)?(((\+|-)\d\d:\d\d)|Z)"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="Guid">
+    <xsd:annotation>
+      <xsd:documentation>A globally unique ID.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="\{?[a-fA-F0-9:\-]{1,255}\}?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="Description">
+    <xsd:annotation>
+      <xsd:documentation>A field containing text whose minimum character length is zero (can be null) and whose maximum character length is
+				1024.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="1024"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="Identifier">
+    <xsd:annotation>
+      <xsd:documentation>A field containing text whose minimum character length is 1 (cannot be null) and whose maximum character length is
+				255.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://example.com/tutotial/sendTutorialMessage" name="sendTutorialMessage" bindingOperationName="sendTutorialMessage" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1" outgoingWss="test" incomingWss="incoming" sslKeystore=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tut="http://example.com/tutotial/" xmlns:typ="http://example.com/tutotial/types/">
+   <soapenv:Header>
+      <tut:message-source system-identifier="Foo" message-identifier="Bar"/>
+   </soapenv:Header>
+   <soapenv:Body>
+      <tut:tutorial-request>
+         <typ:request-structure guid="19082908208019090">
+            <!--Zero or more repetitions:-->
+            <typ:tag uri="some:uri" value="value"/>
+         </typ:request-structure>
+      </tut:tutorial-request>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/tutotial/sendTutorialMessage"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:endpointStrategy xsi:type="con:DefaultEndpointStrategy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:endpoint mode="COMPLEMENT" wssType="" outgoingWss="test" incomingWss="incoming">http://localhost:8080/WSSecurityTutorialWAR/jaxws/TutorialWebService</con:endpoint></con:endpointStrategy><con:properties/><con:wssContainer><con:crypto><con:source>src/test/resources/clientKeystore.jks</con:source><con:password>cspass</con:password><con:type>KEYSTORE</con:type><con:defaultAlias>myclientkey</con:defaultAlias><con:aliasPassword>ckpass</con:aliasPassword></con:crypto><con:crypto><con:source>src/test/resources/clientKeystore.jks</con:source><con:password>cspass</con:password><con:type>TRUSTSTORE</con:type><con:defaultAlias>myservicekey</con:defaultAlias><con:aliasPassword>ckpass</con:aliasPassword></con:crypto><con:incoming><con:name>incoming</con:name><con:decryptCrypto>clientKeystore.jks</con:decryptCrypto><con:signatureCrypto>clientKeystore.jks</con:signatureCrypto><con:decryptPassword>cspass</con:decryptPassword></con:incoming><con:outgoing><con:name>test</con:name><con:entry type="Encryption" username="myservicekey" password="ckpass"><con:configuration><crypto>clientKeystore.jks</crypto><keyIdentifierType>3</keyIdentifierType><symmetricEncAlgorithm/><encKeyTransport/><embeddedKeyName/><embeddedKeyPassword/><encryptionCanonicalization/><encryptSymmetricKey>true</encryptSymmetricKey><encryptionPart><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="id" value=""/>
+  <con:entry key="name" value="Body"/>
+  <con:entry key="enc" value="Element"/>
+  <con:entry key="namespace" value="http://schemas.xmlsoap.org/soap/envelope/"/>
+</xml-fragment>]]></encryptionPart></con:configuration></con:entry><con:entry type="Signature" username="myclientkey" password="cspass"><con:configuration><crypto>clientKeystore.jks</crypto><keyIdentifierType>3</keyIdentifierType><signatureAlgorithm/><signatureCanonicalization/><useSingleCert>false</useSingleCert><digestAlgorithm/><signaturePart><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="id" value=""/>
+  <con:entry key="name" value="Body"/>
+  <con:entry key="enc" value="Element"/>
+  <con:entry key="namespace" value="http://schemas.xmlsoap.org/soap/envelope/"/>
+</xml-fragment>]]></signaturePart><signaturePart><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="id" value=""/>
+  <con:entry key="name" value="message-source"/>
+  <con:entry key="namespace" value="http://example.com/tutotial/"/>
+  <con:entry key="enc" value="Element"/>
+</xml-fragment>]]></signaturePart></con:configuration></con:entry><con:entry type="Timestamp"><con:configuration><timeToLive>10000</timeToLive><strictTimestamp>true</strictTimestamp></con:configuration></con:entry></con:outgoing></con:wssContainer><con:sensitiveInformation/></con:soapui-project>
