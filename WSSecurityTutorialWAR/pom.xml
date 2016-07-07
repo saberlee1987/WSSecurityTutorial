@@ -234,7 +234,8 @@
 						<type>installed</type>
 						<zipUrlInstaller>
 							<url>${downloadUrl}</url>
-							<installDir>${installDir}</installDir>
+							<downloadDir>${installDir}</downloadDir>
+							<extractDir>${installDir}/${containerId}</extractDir>
 						</zipUrlInstaller>
 						<systemProperties>
 							<configDirectory>${basedir}/target/test-classes</configDirectory>

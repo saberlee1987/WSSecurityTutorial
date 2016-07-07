@@ -12,15 +12,15 @@
 		The "WSSecurityTutorial" group of projects contains an example of how to create a JAX-WS web service using Apache CXF,
 		and secure that service with WS-Security encryption and signatures, specified by WS-SecurityPolicy assertions in the
 		WSDL.
-	
+
 		This project contains parent POM file that sets up dependency versions and other parameters for our examples, and includes
 		the modules for a reactor build of the entire project.  See the descriptions of each of the child projects
 		for information on them.
-		
+
 		To execute a complete reactor build of the parent and its children, execute 'mvn clean install' from the parent
 		directory, or 'mvn clean install -Pintegration-test', which will start up the tomcat server and execute the integration
 		tests.
-		
+
 		Of special note is that the maven-surefire-plugin is configured to run the TestNG groups unit and local-integration, so that
 		other groups (specifically remote-integration) are excluded; these examples use TestNG instead of JUnit for this grouping functionality.
 	</description>
@@ -28,7 +28,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		
+
 		<jvmVersion>1.6</jvmVersion>
 		<javaxServletVersion>1.0</javaxServletVersion>
 		<springVersion>3.0.5.RELEASE</springVersion>
@@ -50,10 +50,9 @@
 		<commonsLangVersion>2.5</commonsLangVersion>
 		<commonsBeanutilsVersion>1.8.3</commonsBeanutilsVersion>
 		<commonsPoolVersion>1.5.4</commonsPoolVersion>
-		
+
 		<javaxInjectVersion>1</javaxInjectVersion>
-		<cxf.version>2.3.3</cxf.version>
-		<bouncycastle.version>1.45</bouncycastle.version>
+		<cxf.version>2.4.0</cxf.version>
 	</properties>
 
 	<dependencyManagement>
@@ -427,7 +426,7 @@
 		<module>../WSSecurityTutorialJaxWs</module>
 		<module>../WSSecurityTutorialWAR</module>
 	</modules>
-	
+
 	<repositories>
 		<repository>
 			<id>jboss.repo</id>
