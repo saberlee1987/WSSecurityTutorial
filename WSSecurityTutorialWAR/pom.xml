@@ -10,32 +10,32 @@
 	<description>
 		This module, packaged as a WAR, contains the core of our implementation of the service.  This pom file will
 		accept the standard maven commands, and contains configurations for a couple of more plugins and profiles:
-		
+
 		Running 'mvn clean install -Pintegration-test' will start the tomcat server and run the remote intergration tests.
-		
+
 		Running 'mvn cargo:start' will start the tomcat server and leave it running until the user types "Ctrl-C", so that
 		tests can be run in a separate tool (say, Eclipse), or other testing may be performed against the running service.
-		
+
 		The end result war is configured by various files through spring, using an extension of Spring's property placeholder
 		functionality which will if necessary read properties from system property or JNDI env values.  There are three tiers
 		of property configuration files:  a default one, a deployment one, and a test one.  The intent is for the default one
 		(in src/main/resources) to be rolled into the WAR, and for the deployment one to be modified and deployed to the
 		deployment server's file system, and its location specified via a system property or JNDI value.
-		
+
 		Various other files are present here, including the basic Spring configuration files, logback configuration files
 		for SLF4J (which is used in these examples to override both log4j and commons-logging in all dependencies), and
 		configuration files for CXF (META-INF/cxf/org.apache.cxf.Logger) which force CXF to use SLF4J as well.
-		
+
 		The configuration directories also include the necessary keystores; obviously you would want to specify your own keys
 		and keystores for a real deployment.
-		
+
 		The tests use TestNG for its grouping functionality, and the "integration-test" profile executes the "remote-integration"
 		group, while the normal test runs include only the "unit" and "local-integration" groups.  These tests use the CXF client
 		functionality and have their own Spring configuration, and they serve as an example of how to build a CXF client
 		for this kind of service.
 	</description>
 	<inceptionYear>2011</inceptionYear>
-	
+
 	<parent>
 		<groupId>com.example.security</groupId>
 		<artifactId>WSSecurityTutorialParent</artifactId>
@@ -48,7 +48,7 @@
 		<apjPort>8010</apjPort>
 		<stopPort>9977</stopPort>
 		<containerId>tomcat7x</containerId>
-		<downloadUrl>http://mirrors.ibiblio.org/apache/tomcat/tomcat-7/v7.0.14/bin/apache-tomcat-7.0.14.zip</downloadUrl>
+		<downloadUrl>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.47/bin/apache-tomcat-7.0.47.zip</downloadUrl>
 		<installDir>${user.home}/.m2/tomcatm2</installDir>
 		<waitForCargo>true</waitForCargo>
 
@@ -266,7 +266,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<profiles>
 		<profile>
 			<id>integration-test</id>
